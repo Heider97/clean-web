@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('professionals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('address');
@@ -20,6 +20,8 @@ return new class extends Migration
             $table->number('phone_number');
             $table->char('zip_code');
             $table->date('date_of_birth');
+            $table->decimal('rating', 3, 2)->default(0.0);
+            $table->integer('total_reviews')->default(0);
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('professionals');
     }
 };
