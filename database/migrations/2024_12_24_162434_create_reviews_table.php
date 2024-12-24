@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('professional_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('client_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('request_id')->constrained('cleaning_requests')->onDelete('cascade');
+            $table->foreignId('request_id')->constrained('requests')->onDelete('cascade');
             $table->integer('rating')->check(function ($query) {
                 $query->whereBetween('rating', [1, 5]);
             });

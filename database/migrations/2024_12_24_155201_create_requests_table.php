@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
             $table->text('description')->nullable();
-            $table->enum('status', ['pendiente', 'aceptada', 'rechazada', 'finalizada'])->default('pendiente');
+            $table->enum('status', ['pending', 'accepted', 'rejected', 'completed'])->default('pending');
             $table->timestamps();
         });
     }
