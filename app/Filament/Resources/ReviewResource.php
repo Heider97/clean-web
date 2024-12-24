@@ -58,10 +58,10 @@ class ReviewResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('professional_id')
+                Tables\Columns\TextColumn::make('professional.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('client_id')
+                Tables\Columns\TextColumn::make('client.name')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('request_id')

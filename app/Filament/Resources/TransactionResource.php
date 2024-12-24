@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TransactionResource\Pages;
 use App\Filament\Resources\TransactionResource\RelationManagers;
 use App\Models\Transaction;
+use App\Tables\Columns\Performance;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -63,15 +64,13 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('request_id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('client_id')
+                Tables\Columns\TextColumn::make('client.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('professional_id')
+                Tables\Columns\TextColumn::make('professional.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('amount')
-                    ->numeric()
-                    ->sortable(),
+                Performance::make('performance'),
                 Tables\Columns\TextColumn::make('payment_method')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')

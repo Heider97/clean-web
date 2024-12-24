@@ -62,12 +62,6 @@ class RequestResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->sortable(),
-                // Tables\Columns\TextColumn::make('latitude')
-                //     ->numeric()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('longitude')
-                //     ->numeric()
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')

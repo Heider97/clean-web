@@ -50,12 +50,6 @@ class CustomerResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('address')
                     ->searchable(),
-                // Tables\Columns\TextColumn::make('latitude')
-                //     ->numeric()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('longitude')
-                //     ->numeric()
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->numeric()
                     ->sortable(),
