@@ -61,8 +61,7 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('request_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('request.order')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('client.name')
                     ->numeric()
@@ -70,10 +69,17 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('professional.name')
                     ->numeric()
                     ->sortable(),
-                Performance::make('performance'),
+                Performance::make('amount'),
                 Tables\Columns\TextColumn::make('payment_method')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending' => 'gray',
+                        'cancel' => 'warning',
+                        'paid' => 'success',
+                        'failed' => 'danger',
+                    })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -10,8 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Mokhosh\FilamentRating\Columns\RatingColumn;
 
 class ReviewResource extends Resource
 {
@@ -64,12 +63,12 @@ class ReviewResource extends Resource
                 Tables\Columns\TextColumn::make('client.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('request_id')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('request.order')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('rating')
-                    ->numeric()
-                    ->sortable(),
+                RatingColumn::make('rating'),
+                // Tables\Columns\TextColumn::make('rating')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

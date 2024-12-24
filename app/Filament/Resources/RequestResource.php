@@ -63,6 +63,13 @@ class RequestResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending' => 'gray',
+                        'completed' => 'success',
+                        'accepted' => 'success',
+                        'rejected' => 'danger',
+                    })
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

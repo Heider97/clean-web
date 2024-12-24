@@ -5,5 +5,5 @@
 @endphp
 
 <div class="text-sm">
-    <div>{{  Number::currency($record->amount, 'COP') }}</div>
+    <div>{{  Number::currency($record->amount) }}</div>
 </div>
