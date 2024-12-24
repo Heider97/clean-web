@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ReviewResource\Pages;
-use App\Filament\Resources\ReviewResource\RelationManagers;
-use App\Models\Review;
+use App\Filament\Resources\TransactionResource\Pages;
+use App\Filament\Resources\TransactionResource\RelationManagers;
+use App\Models\Transaction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,15 +13,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ReviewResource extends Resource
+class TransactionResource extends Resource
 {
-    protected static ?string $model = Review::class;
+    protected static ?string $model = Transaction::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Zone Transactional';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
 
     public static function getNavigationBadge(): ?string
     {
@@ -37,20 +37,22 @@ class ReviewResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('professional_id')
+                Forms\Components\TextInput::make('request_id')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('client_id')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('request_id')
+                Forms\Components\TextInput::make('professional_id')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('rating')
+                Forms\Components\TextInput::make('amount')
                     ->required()
                     ->numeric(),
-                Forms\Components\Textarea::make('comment')
-                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('payment_method')
+                    ->required(),
+                Forms\Components\TextInput::make('status')
+                    ->required(),
             ]);
     }
 
@@ -58,18 +60,22 @@ class ReviewResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('professional_id')
+                Tables\Columns\TextColumn::make('request_id')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('client_id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('request_id')
+                Tables\Columns\TextColumn::make('professional_id')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('rating')
+                Tables\Columns\TextColumn::make('amount')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('payment_method')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -103,10 +109,10 @@ class ReviewResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListReviews::route('/'),
-            'create' => Pages\CreateReview::route('/create'),
-            'view' => Pages\ViewReview::route('/{record}'),
-            'edit' => Pages\EditReview::route('/{record}/edit'),
+            'index' => Pages\ListTransactions::route('/'),
+            'create' => Pages\CreateTransaction::route('/create'),
+            'view' => Pages\ViewTransaction::route('/{record}'),
+            'edit' => Pages\EditTransaction::route('/{record}/edit'),
         ];
     }
 }
