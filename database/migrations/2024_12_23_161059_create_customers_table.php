@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('address');
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
-            $table->integer('phone_number');
-            $table->char('zip_code');
-            $table->date('date_of_birth');
+            $table->integer('phone_number')->nullable();
+            $table->char('zip_code')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->timestamps();
         });
     }

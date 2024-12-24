@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Professional;
 use Illuminate\Database\Seeder;
 
-class ProfesionalSeeder extends Seeder
+class ProfessionalSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -24,6 +24,7 @@ class ProfesionalSeeder extends Seeder
 
         Professional::create([
             'user_id' => $proUser->id,
+            'address' => '123 Main St',
             'rating' => 4.5,
             'total_reviews' => 10,
             'latitude' => 19.432608,
