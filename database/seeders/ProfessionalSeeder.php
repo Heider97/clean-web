@@ -13,22 +13,21 @@ class ProfessionalSeeder extends Seeder
      */
     public function run(): void
     {
-        // Register a professional
-        $proUser = User::create([
-            'name' => 'Jane Smith',
-            'email' => 'jane@example.com',
-            'password' => bcrypt('password'),
-        ]);
+        
+        // Create professionals
+        User::factory()->count(5)->create()->each(function ($user) {
+            $user->assignRole('professional');
+            
+            Professional::create([
+                'user_id' => $user->id,
+                'address' => '123 Main St',
+                'rating' => 4.5,
+                'total_reviews' => 10,
+                'latitude' => 19.432608,
+                'longitude' => -99.133209,
+            ]);
 
-        $proUser->assignRole('professional');
-
-        Professional::create([
-            'user_id' => $proUser->id,
-            'address' => '123 Main St',
-            'rating' => 4.5,
-            'total_reviews' => 10,
-            'latitude' => 19.432608,
-            'longitude' => -99.133209,
-        ]);
+        });
+        
     }
 }
