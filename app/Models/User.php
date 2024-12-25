@@ -10,8 +10,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Filament\Models\Contracts\FilamentUser;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasRoles;
 
@@ -74,5 +75,14 @@ class User extends Authenticatable
     public function professional()
     {
         return $this->hasOne(Professional::class, 'user_id');
+    }
+
+    /**
+     * Determine if the user can access the Filament panel.
+     */
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        // Aquí puedes personalizar la lógica de acceso, por ejemplo:
+        return $this->hasRole('admin'); // Ajusta según tu lógica
     }
 }
