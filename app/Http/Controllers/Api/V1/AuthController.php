@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use App\Models\Customer;
+use App\Models\Professional;
 
 class AuthController extends Controller
 {
@@ -69,5 +71,70 @@ class AuthController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Firebase token actualizado.']);
+    }
+
+
+     /**
+     * Register a new customer.
+     */
+    public function registerCustomer(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'address' => 'required|string|max:255',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'customer',
+        ]);
+
+        Customer::create([
+            'user_id' => $user->id,
+            'address' => $request->address,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
+
+        return response()->json(['message' => 'Customer registered successfully.'], 201);
+    }
+
+    /**
+     * Register a new professional.
+     */
+    public function registerProfessional(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'rating' => 'nullable|numeric|min:0|max:5',
+            'total_reviews' => 'nullable|integer|min:0',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'professional',
+        ]);
+
+        Professional::create([
+            'user_id' => $user->id,
+            'rating' => $request->rating ?? 0,
+            'total_reviews' => $request->total_reviews ?? 0,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
+
+        return response()->json(['message' => 'Professional registered successfully.'], 201);
     }
 }

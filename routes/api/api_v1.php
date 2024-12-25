@@ -15,6 +15,8 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register/customer', [AuthController::class, 'registerCustomer']);
+Route::post('/register/professional', [AuthController::class, 'registerProfessional']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/firebase-token', [AuthController::class, 'updateFirebaseToken']);
