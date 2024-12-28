@@ -21,9 +21,7 @@ class TransactionSeeder extends Seeder
             Transaction::factory()->create([
                 'request_id' => $request->id,
                 'client_id' => $request->client_id,
-                'professional_id' => User::role('professional')->inRandomOrder()->first()->id,
-                'amount' => rand(50, 500),
-                'status' => ['pending', 'paid', 'failed'][array_rand(['pending', 'paid', 'failed'])],
+                'professional_id' => User::role('professional')->inRandomOrder()->first()->id
             ]);
         }
     }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('other_number_of_rooms')->nullable();
 
             $table->enum('number_of_bathrooms', ['one', 'two', 'three_or_more', 'none']);
-            $table->string('adicional_services');
+            $table->string('adicional_services')->nullable();
 
 
 
