@@ -13,9 +13,9 @@ class ServiceSeeder extends Seeder
     public function run(): void
     {
         // Create roles if not already created
-        Service::firstOrCreate(['name' => 'Standard', 'svg' => 'storage/app/standard.svg']);
-        Service::firstOrCreate(['name' => 'Deep', 'svg' => 'storage/app/deep.svg']);
-        Service::firstOrCreate(['name' => 'End of work', 'svg' => 'storage/app/end_of_work.svg']);
-        Service::firstOrCreate(['name' => 'Other', 'svg' => 'storage/app/other.svg']);
+        Service::firstOrCreate(['name' => 'House', 'svg' => 'assets/svgs/home/house.svg']);
+        Service::firstOrCreate(['name' => 'Apartment', 'svg' => 'assets/svgs/home/apartment.svg']);
+        Service::firstOrCreate(['name' => 'Commercial or Office', 'svg' => 'assets/svgs/home/building.svg']);
+        Service::firstOrCreate(['name' => 'Other', 'svg' => 'assets/svgs/home/other.svg']);
     }
 }

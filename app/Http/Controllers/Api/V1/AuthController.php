@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
@@ -20,7 +21,7 @@ class AuthController extends Controller
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'role_id' => 'required|exists:roles,id',
+            'role' => 'required|exists:roles,id',
         ]);
 
         $user = User::create([
@@ -29,6 +30,8 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'role_id' => $request->role_id,
         ]);
+
+        $user->assignRole($request->role);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
@@ -43,13 +46,23 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::with('roles', 'permissions', 'customer', 'cleaner')->where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages(['email' => 'Credenciales incorrectas']);
         }
 
+        // Get the first role
+        $role = $user->roles->first();
+
+        // Check if the role is not 'customer' or 'specialist'
+        if (!in_array($role->name, ['customer', 'specialist'])) {
+            return response()->json(['message' => 'Unauthorized role'], 403); // 403 Forbidden
+        }
+
         $token = $user->createToken('auth_token')->plainTextToken;
+
+        $user = new UserResource($user);
 
         return response()->json(['token' => $token, 'user' => $user]);
     }

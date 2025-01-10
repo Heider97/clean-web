@@ -18,7 +18,7 @@ class ProfessionalSeeder extends Seeder
 
         // Create professionals
         User::factory()->count(5)->create()->each(function ($user) use ($faker) {
-            $user->assignRole('professional');
+            $user->assignRole('cleaner');
             
             Professional::create([
                 'user_id' => $user->id,
