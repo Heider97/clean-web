@@ -19,7 +19,7 @@ class ReviewSeeder extends Seeder
         foreach ($requests as $request) {
             Review::factory()->create([
                 'client_id' => $request->client_id,
-                'professional_id' => User::role('professional')->inRandomOrder()->first()->id,
+                'professional_id' => User::role('cleaner')->inRandomOrder()->first()->id,
                 'request_id' => $request->id,
             ]);
         }

@@ -7,6 +7,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ext-pdo_sqlite": "*",
+        "bezhansalleh/filament-shield": "^3.3",
         "cheesegrits/filament-google-maps": "^3.0",
         "filament/filament": "^3.2",
         "laravel/framework": "^11.31",
@@ -15,8 +17,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
         "mokhosh/filament-rating": "^1.4",
-        "spatie/laravel-permission": "^6.10",
-        "ext-pdo_sqlite": "*"
+        "spatie/laravel-permission": "^6.10"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
